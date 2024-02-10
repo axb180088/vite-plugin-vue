@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "workspace:*",
+    "@vue-vapor/vite-plugin-vue": "workspace:*",
     "less": "^4.2.0",
     "postcss-nested": "^6.0.1",
     "sass": "^1.77.3"

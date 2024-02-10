@@ -12,7 +12,7 @@
     "vue": "^3.4.27"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "workspace:*",
+    "@vue-vapor/vite-plugin-vue": "workspace:*",
     "@vitejs/plugin-legacy": "^5.4.1"
   }
 }

@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@vitejs/plugin-vue': workspace:*
+  '@vue-vapor/vite-plugin-vue': workspace:*
 
 importers:
 
@@ -138,8 +138,8 @@ importers:
         specifier: ^5.2.12
         version: 5.2.12(@types/node@20.12.13)(less@4.2.0)(sass@1.77.3)(stylus@0.63.0)
       vue:
-        specifier: ^3.4.27
-        version: 3.4.27(typescript@5.4.5)
+        specifier: npm:@vue-vapor/vue@latest
+        version: '@vue-vapor/vue@3.2024.0-446986b(@vue-vapor/vue@3.2024.0-446986b)(typescript@5.4.5)'
 
   packages/plugin-vue-jsx:
     dependencies:
@@ -193,15 +193,15 @@ importers:
         specifier: ^4.3.2
         version: 4.3.2(vue@3.4.27(typescript@5.4.5))
     devDependencies:
-      '@vitejs/plugin-vue':
-        specifier: workspace:*
-        version: link:../../packages/plugin-vue
       '@vitejs/plugin-vue-jsx':
         specifier: workspace:*
         version: link:../../packages/plugin-vue-jsx
       '@vitejs/test-dep-import-type':
         specifier: link:dep-import-type
         version: link:dep-import-type
+      '@vue-vapor/vite-plugin-vue':
+        specifier: workspace:*
+        version: link:../../packages/plugin-vue
       compression:
         specifier: ^1.7.4
         version: 1.7.4
@@ -234,7 +234,7 @@ importers:
       '@types/node':
         specifier: ^20.12.13
         version: 20.12.13
-      '@vitejs/plugin-vue':
+      '@vue-vapor/vite-plugin-vue':
         specifier: workspace:*
         version: link:../../packages/plugin-vue
       ts-node:
@@ -250,7 +250,7 @@ importers:
         specifier: ^3.4.27
         version: 3.4.27(typescript@5.4.5)
     devDependencies:
-      '@vitejs/plugin-vue':
+      '@vue-vapor/vite-plugin-vue':
         specifier: workspace:*
         version: link:../../packages/plugin-vue
       js-yaml:
@@ -275,7 +275,7 @@ importers:
         specifier: ^3.4.27
         version: 3.4.27(typescript@5.4.5)
     devDependencies:
-      '@vitejs/plugin-vue':
+      '@vue-vapor/vite-plugin-vue':
         specifier: workspace:*
         version: link:../../packages/plugin-vue
 
@@ -285,12 +285,12 @@ importers:
         specifier: ^3.4.27
         version: 3.4.27(typescript@5.4.5)
     devDependencies:
-      '@vitejs/plugin-vue':
-        specifier: workspace:*
-        version: link:../../packages/plugin-vue
       '@vitejs/plugin-vue-jsx':
         specifier: workspace:*
         version: link:../../packages/plugin-vue-jsx
+      '@vue-vapor/vite-plugin-vue':
+        specifier: workspace:*
+        version: link:../../packages/plugin-vue
 
   playground/vue-legacy:
     dependencies:
@@ -301,7 +301,7 @@ importers:
       '@vitejs/plugin-legacy':
         specifier: ^5.4.1
         version: 5.4.1(vite@5.2.12(@types/node@20.12.13)(less@4.2.0)(sass@1.77.3)(stylus@0.63.0))
-      '@vitejs/plugin-vue':
+      '@vue-vapor/vite-plugin-vue':
         specifier: workspace:*
         version: link:../../packages/plugin-vue
 
@@ -311,7 +311,7 @@ importers:
         specifier: ^3.4.27
         version: 3.4.27(typescript@5.4.5)
     devDependencies:
-      '@vitejs/plugin-vue':
+      '@vue-vapor/vite-plugin-vue':
         specifier: workspace:*
         version: link:../../packages/plugin-vue
 
@@ -321,7 +321,7 @@ importers:
         specifier: ^3.4.27
         version: 3.4.27(typescript@5.4.5)
     devDependencies:
-      '@vitejs/plugin-vue':
+      '@vue-vapor/vite-plugin-vue':
         specifier: workspace:*
         version: link:../../packages/plugin-vue
 
@@ -331,7 +331,7 @@ importers:
         specifier: ^3.4.27
         version: 3.4.27(typescript@5.4.5)
     devDependencies:
-      '@vitejs/plugin-vue':
+      '@vue-vapor/vite-plugin-vue':
         specifier: workspace:*
         version: link:../../packages/plugin-vue
       less:
@@ -1819,6 +1819,55 @@ packages:
 
   '@vitest/utils@1.6.0':
     resolution: {integrity: sha512-21cPiuGMoMZwiOHa2i4LXkMkMkCGzA+MVFV70jRwHo95dL4x/ts5GZhML1QWuy7yfp3WzK3lRvZi3JnXTYqrBw==}
+
+  '@vue-vapor/compiler-core@3.2024.0-446986b':
+    resolution: {integrity: sha512-r9Oea5bZAyANy9ZuD6LP1Rcn9HmdclE9XmSGJ/u4+YOC22mL8f4nYuB8VF0Es1fWPc392uU2jQfAFr3vD3heEw==}
+
+  '@vue-vapor/compiler-dom@3.2024.0-446986b':
+    resolution: {integrity: sha512-NgiqoZDXgXsmcvOB1QzwZY7Ov2xO7ZRA93gVbk7rTOYSXoNEhHEi8GEz++Wd6Kr/KkFS7MF463nMnLjiBzYUEg==}
+
+  '@vue-vapor/compiler-sfc@3.2024.0-446986b':
+    resolution: {integrity: sha512-Sp+fjrcg0a5Z04oXdZt0MwWk/XlVvFSF1JEbzn5pUTE63sJr6WnNDEGPy2AfL+rtv9SgJ9ZsrH5AVYTNbqhvTQ==}
+
+  '@vue-vapor/compiler-ssr@3.2024.0-446986b':
+    resolution: {integrity: sha512-KurOBUU1VHbc3klsJ/Q8YjKzU+HGgwBtHd2bPqP1Q1j2E3Zrtq8TT9GVB7IpRbYb8oARQDtDP3fQ+LEwywv4SQ==}
+
+  '@vue-vapor/compiler-vapor@3.2024.0-446986b':
+    resolution: {integrity: sha512-yVJVXWy4lZwMp2SHGly1wYj4evED86yr1kKH8EG1+LqD97NOR9x4G6inwDjs8kKjqC4MjglWtMkK1jjmQ5sTsw==}
+
+  '@vue-vapor/reactivity@3.2024.0-446986b':
+    resolution: {integrity: sha512-JegF/i7b0BfCHFwyDgIWsREuSNtSigoeIMJktSbfIuvJin3pqGf1WM56KWAnZs5uqS+nOXtmY0MkIKN2ZC05oQ==}
+
+  '@vue-vapor/runtime-core@3.2024.0-446986b':
+    resolution: {integrity: sha512-EvyhjbLdoY2sLfGEtxlTZg+nlwi55uCNxDP5Y/hCEFWpr4/EgMmFmrasIQYbaCckgDmsNi2HajkqhiVjM5n7pw==}
+
+  '@vue-vapor/runtime-dom@3.2024.0-446986b':
+    resolution: {integrity: sha512-DRQgRM1LvNLe/G2ATpkajdwofOZZl+boH69WdbuxgFjtLcouWHoLPoqMb0SUTl4GUrMO9cz/ElfYtN7fjBXGMg==}
+
+  '@vue-vapor/runtime-shared@3.2024.0-446986b':
+    resolution: {integrity: sha512-Ok9vMSZ06b3jeAhwSJlLxkPh+APcc5E96z9FqMDg9LfvgmQtwTcaE1RtrQ7rkfA7BklBQU2OT0pYFckAlYLBng==}
+
+  '@vue-vapor/runtime-vapor@3.2024.0-446986b':
+    resolution: {integrity: sha512-F3iQ90lZWavX1RzBbRF9HG0fmGLQz2H4jvCfyCjR4CteLNZmfhZucR1MegxatGvBfwPabiZl2MB77RYUnWWW0g==}
+
+  '@vue-vapor/server-renderer@3.2024.0-446986b':
+    resolution: {integrity: sha512-OBE6ugKmfDPWaZJhFtZU9PgbHP8chJ4xvFYdbjDzr64yminsQSNEDh7K572KeQQs9iajeQXe/6qhv0RcJARvqg==}
+    peerDependencies:
+      vue: npm:@vue-vapor/vue@3.2024.0-446986b
+
+  '@vue-vapor/shared@3.2024.0-446986b':
+    resolution: {integrity: sha512-dg5aIeeNs1iZhDV1i6vjpQodEwoxkvC+vCopbmAyHoYNvIYKVauXa4JjePDNxqw2U+7AgZ85FCqN7w51+GQ0Eg==}
+
+  '@vue-vapor/vapor@3.2024.0-446986b':
+    resolution: {integrity: sha512-Ot8BKPmYAOhtPb2CCKgEL+1GBrZcBGAubt8SSxrXbSvR6GTFwE4wXykrNyv7HbUrJikRZEQQK8vwWH5G5MB9og==}
+
+  '@vue-vapor/vue@3.2024.0-446986b':
+    resolution: {integrity: sha512-rtVMzmguTCWLas+OB2rb4OQpGS/NpDWu5vUA2zo3rukOy8DROrq0OwjC9+dxODzZiSmsTDIV8jcd8k+BlArD+g==}
+    peerDependencies:
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   '@vue/babel-helper-vue-transform-on@1.2.2':
     resolution: {integrity: sha512-nOttamHUR3YzdEqdM/XXDyCSdxMA9VizUKoroLX6yTyRtggzQMHXcmwh8a7ZErcJttIBIc9s68a1B8GZ+Dmvsw==}
@@ -6081,6 +6130,93 @@ snapshots:
       estree-walker: 3.0.3
       loupe: 2.3.7
       pretty-format: 29.7.0
+
+  '@vue-vapor/compiler-core@3.2024.0-446986b':
+    dependencies:
+      '@babel/parser': 7.24.6
+      '@vue/shared': '@vue-vapor/shared@3.2024.0-446986b'
+      entities: 4.5.0
+      estree-walker: 2.0.2
+      source-map-js: 1.2.0
+
+  '@vue-vapor/compiler-dom@3.2024.0-446986b':
+    dependencies:
+      '@vue/compiler-core': '@vue-vapor/compiler-core@3.2024.0-446986b'
+      '@vue/shared': '@vue-vapor/shared@3.2024.0-446986b'
+
+  '@vue-vapor/compiler-sfc@3.2024.0-446986b':
+    dependencies:
+      '@babel/parser': 7.24.6
+      '@vue/compiler-core': '@vue-vapor/compiler-core@3.2024.0-446986b'
+      '@vue/compiler-dom': '@vue-vapor/compiler-dom@3.2024.0-446986b'
+      '@vue/compiler-ssr': '@vue-vapor/compiler-ssr@3.2024.0-446986b'
+      '@vue/compiler-vapor': '@vue-vapor/compiler-vapor@3.2024.0-446986b'
+      '@vue/shared': '@vue-vapor/shared@3.2024.0-446986b'
+      estree-walker: 2.0.2
+      magic-string: 0.30.10
+      postcss: 8.4.38
+      source-map-js: 1.2.0
+
+  '@vue-vapor/compiler-ssr@3.2024.0-446986b':
+    dependencies:
+      '@vue/compiler-dom': '@vue-vapor/compiler-dom@3.2024.0-446986b'
+      '@vue/shared': '@vue-vapor/shared@3.2024.0-446986b'
+
+  '@vue-vapor/compiler-vapor@3.2024.0-446986b':
+    dependencies:
+      '@vue/compiler-dom': '@vue-vapor/compiler-dom@3.2024.0-446986b'
+      '@vue/shared': '@vue-vapor/shared@3.2024.0-446986b'
+      source-map-js: 1.2.0
+
+  '@vue-vapor/reactivity@3.2024.0-446986b':
+    dependencies:
+      '@vue/shared': '@vue-vapor/shared@3.2024.0-446986b'
+
+  '@vue-vapor/runtime-core@3.2024.0-446986b':
+    dependencies:
+      '@vue/reactivity': '@vue-vapor/reactivity@3.2024.0-446986b'
+      '@vue/runtime-shared': '@vue-vapor/runtime-shared@3.2024.0-446986b'
+      '@vue/shared': '@vue-vapor/shared@3.2024.0-446986b'
+
+  '@vue-vapor/runtime-dom@3.2024.0-446986b':
+    dependencies:
+      '@vue/runtime-core': '@vue-vapor/runtime-core@3.2024.0-446986b'
+      '@vue/shared': '@vue-vapor/shared@3.2024.0-446986b'
+      csstype: 3.1.3
+
+  '@vue-vapor/runtime-shared@3.2024.0-446986b': {}
+
+  '@vue-vapor/runtime-vapor@3.2024.0-446986b':
+    dependencies:
+      '@vue/reactivity': '@vue-vapor/reactivity@3.2024.0-446986b'
+      '@vue/runtime-shared': '@vue-vapor/runtime-shared@3.2024.0-446986b'
+      '@vue/shared': '@vue-vapor/shared@3.2024.0-446986b'
+
+  '@vue-vapor/server-renderer@3.2024.0-446986b(@vue-vapor/vue@3.2024.0-446986b(@vue-vapor/vue@3.2024.0-446986b)(typescript@5.4.5))':
+    dependencies:
+      '@vue/compiler-ssr': '@vue-vapor/compiler-ssr@3.2024.0-446986b'
+      '@vue/shared': '@vue-vapor/shared@3.2024.0-446986b'
+      vue: '@vue-vapor/vue@3.2024.0-446986b(@vue-vapor/vue@3.2024.0-446986b)(typescript@5.4.5)'
+
+  '@vue-vapor/shared@3.2024.0-446986b': {}
+
+  '@vue-vapor/vapor@3.2024.0-446986b':
+    dependencies:
+      '@vue/compiler-vapor': '@vue-vapor/compiler-vapor@3.2024.0-446986b'
+      '@vue/runtime-vapor': '@vue-vapor/runtime-vapor@3.2024.0-446986b'
+
+  '@vue-vapor/vue@3.2024.0-446986b(@vue-vapor/vue@3.2024.0-446986b)(typescript@5.4.5)':
+    dependencies:
+      '@vue/compiler-dom': '@vue-vapor/compiler-dom@3.2024.0-446986b'
+      '@vue/compiler-sfc': '@vue-vapor/compiler-sfc@3.2024.0-446986b'
+      '@vue/runtime-dom': '@vue-vapor/runtime-dom@3.2024.0-446986b'
+      '@vue/server-renderer': '@vue-vapor/server-renderer@3.2024.0-446986b(@vue-vapor/vue@3.2024.0-446986b(@vue-vapor/vue@3.2024.0-446986b)(typescript@5.4.5))'
+      '@vue/shared': '@vue-vapor/shared@3.2024.0-446986b'
+      '@vue/vapor': '@vue-vapor/vapor@3.2024.0-446986b'
+    optionalDependencies:
+      typescript: 5.4.5
+    transitivePeerDependencies:
+      - vue
 
   '@vue/babel-helper-vue-transform-on@1.2.2': {}
 

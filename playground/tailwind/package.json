@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.12.13",
-    "@vitejs/plugin-vue": "workspace:*",
+    "@vue-vapor/vite-plugin-vue": "workspace:*",
     "ts-node": "^10.9.2"
   }
 }
