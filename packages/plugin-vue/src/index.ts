@@ -69,6 +69,7 @@ export interface Options {
       | 'ssr'
       | 'ssrCssVars'
       | 'preprocessLang'
+      | 'vapor'
     >
   >
   style?: Partial<
