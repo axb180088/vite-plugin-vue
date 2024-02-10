@@ -47,6 +47,7 @@ export interface Options {
       | 'genDefaultAs'
       | 'customElement'
       | 'defineModel'
+      | 'vapor'
     >
   > & {
     /**
@@ -102,6 +103,11 @@ export interface Options {
    * Use custom compiler-sfc instance. Can be used to force a specific version.
    */
   compiler?: typeof _compiler
+
+  /**
+   * Force to use of Vapor mode.
+   */
+  vapor?: boolean
 }
 
 export interface ResolvedOptions extends Options {
@@ -125,6 +131,7 @@ export default function vuePlugin(rawOptions: Options = {}): Plugin<Api> {
     compiler: null as any, // to be set in buildStart
     include: /\.vue$/,
     customElement: /\.ce\.vue$/,
+    vapor: false,
     ...rawOptions,
     root: process.cwd(),
     sourceMap: true,
