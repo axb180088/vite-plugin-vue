@@ -108,7 +108,7 @@ export async function transformMain(
     }
   }
 
-  if (descriptor.vapor || options.vapor) {
+  if (!descriptor.vapor && options.vapor) {
     attachedProps.push(['vapor', 'true'])
   }
 
