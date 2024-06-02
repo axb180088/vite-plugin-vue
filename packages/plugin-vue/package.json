@@ -1,6 +1,6 @@
 {
   "name": "@vue-vapor/vite-plugin-vue",
-  "version": "0.0.0-alpha.4",
+  "version": "0.0.0-alpha.5",
   "license": "MIT",
   "author": "Evan You",
   "files": [
