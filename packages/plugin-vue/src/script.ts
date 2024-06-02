@@ -77,7 +77,6 @@ export function resolveScript(
       ? scriptIdentifier
       : undefined,
     customElement,
-    vapor: options.vapor,
   })
 
   if (!options.isProduction && resolved?.deps) {
