@@ -19,7 +19,7 @@ import {
   getSrcDescriptor,
   getTempSrcDescriptor,
 } from './utils/descriptorCache'
-import { getResolvedScript, typeDepToSFCMap } from './script'
+import { clearScriptCache, getResolvedScript, typeDepToSFCMap } from './script'
 import { transformMain } from './main'
 import { handleHotUpdate, handleTypeDepChange } from './handleHotUpdate'
 import { transformTemplateAsModule } from './template'
@@ -33,6 +33,9 @@ export interface Options {
   include?: string | RegExp | (string | RegExp)[]
   exclude?: string | RegExp | (string | RegExp)[]
 
+  /**
+   * In Vite, this option follows Vite's config.
+   */
   isProduction?: boolean
 
   // options to pass on to vue/compiler-sfc
@@ -48,6 +51,7 @@ export interface Options {
       | 'customElement'
       | 'defineModel'
       | 'vapor'
+      | 'propsDestructure'
     >
   > & {
     /**
@@ -55,6 +59,10 @@ export interface Options {
      * using Vue 3.4 or above.
      */
     defineModel?: boolean
+    /**
+     * @deprecated moved to `features.propsDestructure`.
+     */
+    propsDestructure?: boolean
   }
   template?: Partial<
     Omit<
@@ -90,19 +98,54 @@ export interface Options {
       | 'preprocessOptions'
     >
   >
-  /**
-   * Transform Vue SFCs into custom elements.
-   * - `true`: all `*.vue` imports are converted into custom elements
-   * - `string | RegExp`: matched files are converted into custom elements
-   *
-   * @default /\.ce\.vue$/
-   */
-  customElement?: boolean | string | RegExp | (string | RegExp)[]
 
   /**
    * Use custom compiler-sfc instance. Can be used to force a specific version.
    */
   compiler?: typeof _compiler
+
+  /**
+   * Requires @vitejs/plugin-vue@^5.1.0
+   */
+  features?: {
+    /**
+     * Enable reactive destructure for `defineProps`.
+     * - Available in Vue 3.4 and later.
+     * - **default:** `false` in Vue 3.4 (**experimental**), `true` in Vue 3.5+
+     */
+    propsDestructure?: boolean
+    /**
+     * Transform Vue SFCs into custom elements.
+     * - `true`: all `*.vue` imports are converted into custom elements
+     * - `string | RegExp`: matched files are converted into custom elements
+     * - **default:** /\.ce\.vue$/
+     */
+    customElement?: boolean | string | RegExp | (string | RegExp)[]
+    /**
+     * Set to `false` to disable Options API support and allow related code in
+     * Vue core to be dropped via dead-code elimination in production builds,
+     * resulting in smaller bundles.
+     * - **default:** `true`
+     */
+    optionsAPI?: boolean
+    /**
+     * Set to `true` to enable devtools support in production builds.
+     * Results in slightly larger bundles.
+     * - **default:** `false`
+     */
+    prodDevtools?: boolean
+    /**
+     * Set to `true` to enable detailed information for hydration mismatch
+     * errors in production builds. Results in slightly larger bundles.
+     * - **default:** `false`
+     */
+    prodHydrationMismatchDetails?: boolean
+  }
+
+  /**
+   * @deprecated moved to `features.customElement`.
+   */
+  customElement?: boolean | string | RegExp | (string | RegExp)[]
 }
 
 export interface ResolvedOptions extends Options {
@@ -121,6 +164,8 @@ export interface Api {
 }
 
 export default function vuePlugin(rawOptions: Options = {}): Plugin<Api> {
+  clearScriptCache()
+
   const options = shallowRef<ResolvedOptions>({
     isProduction: process.env.NODE_ENV === 'production',
     compiler: null as any, // to be set in buildStart
@@ -130,17 +175,18 @@ export default function vuePlugin(rawOptions: Options = {}): Plugin<Api> {
     root: process.cwd(),
     sourceMap: true,
     cssDevSourcemap: false,
-    devToolsEnabled: process.env.NODE_ENV !== 'production',
   })
 
   const filter = computed(() =>
     createFilter(options.value.include, options.value.exclude),
   )
-  const customElementFilter = computed(() =>
-    typeof options.value.customElement === 'boolean'
-      ? () => options.value.customElement as boolean
-      : createFilter(options.value.customElement),
-  )
+  const customElementFilter = computed(() => {
+    const customElement =
+      options.value.features?.customElement || options.value.customElement
+    return typeof customElement === 'boolean'
+      ? () => customElement
+      : createFilter(customElement)
+  })
 
   return {
     name: 'vite:vue',
@@ -177,10 +223,18 @@ export default function vuePlugin(rawOptions: Options = {}): Plugin<Api> {
           dedupe: config.build?.ssr ? [] : ['vue'],
         },
         define: {
-          __VUE_OPTIONS_API__: config.define?.__VUE_OPTIONS_API__ ?? true,
-          __VUE_PROD_DEVTOOLS__: config.define?.__VUE_PROD_DEVTOOLS__ ?? false,
+          __VUE_OPTIONS_API__:
+            (options.value.features?.optionsAPI ||
+              config.define?.__VUE_OPTIONS_API__) ??
+            true,
+          __VUE_PROD_DEVTOOLS__:
+            (options.value.features?.prodDevtools ||
+              config.define?.__VUE_PROD_DEVTOOLS__) ??
+            false,
           __VUE_PROD_HYDRATION_MISMATCH_DETAILS__:
-            config.define?.__VUE_PROD_HYDRATION_MISMATCH_DETAILS__ ?? false,
+            (options.value.features?.prodHydrationMismatchDetails ||
+              config.define?.__VUE_PROD_HYDRATION_MISMATCH_DETAILS__) ??
+            false,
         },
         ssr: {
           // @ts-ignore -- config.legacy.buildSsrCjsExternalHeuristics will be removed in Vite 5
@@ -198,8 +252,11 @@ export default function vuePlugin(rawOptions: Options = {}): Plugin<Api> {
         sourceMap: config.command === 'build' ? !!config.build.sourcemap : true,
         cssDevSourcemap: config.css?.devSourcemap ?? false,
         isProduction: config.isProduction,
-        devToolsEnabled:
-          !!config.define!.__VUE_PROD_DEVTOOLS__ || !config.isProduction,
+        devToolsEnabled: !!(
+          options.value.features?.prodDevtools ||
+          config.define!.__VUE_PROD_DEVTOOLS__ ||
+          !config.isProduction
+        ),
       }
     },
 
